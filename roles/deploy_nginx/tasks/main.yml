@@ -1,0 +1,19 @@
+---
+# tasks file for deploy_nginx
+  - name: update packages
+    apt:
+     update_cache: yes
+     upgrade: 'yes'
+
+  - name: install nginx
+    yum: name=nginx state=latest
+
+  - name: copy site to server
+    copy: src=index.html dest={{ dest_folder }} mode=0555
+
+  - name: start nginx and enable
+    service: name=nginx state=started enabled=yes
+
+  - name: add port to  ufw
+    shell: 'ufw allow 19999/tcp'
+

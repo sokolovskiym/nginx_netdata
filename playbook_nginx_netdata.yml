@@ -1,0 +1,8 @@
+---
+- name: install nginx, copy site and install netdada
+  hosts: all
+  become: yes
+
+  roles:
+   - { role: deploy_nginx, when: ansible_system == 'Linux' }
+   - { role: deploy_netdata, when: ansible_system == 'Linux' }
